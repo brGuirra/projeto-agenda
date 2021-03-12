@@ -7,10 +7,13 @@ exports.outroMiddleware = (req, res, next) => {
   next();
 };
 
+// Qualquer erro na aplicação será exibida a página 404
 exports.checkCsrfError = (err, req, res, next) => {
-  if(err && 'EBADCSRFTOKEN' === err.code) {
+  if (err) {
     return res.render('404');
   }
+
+  next();
 };
 
 exports.csrfMiddleware = (req, res, next) => {
