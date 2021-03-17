@@ -72,3 +72,17 @@ exports.edit = async (req, res) => {
 
   return;
 };
+
+exports.delete = async (req, res) => {
+  // Se não houver o id do usuário rederiza 404
+  if (!req.params.id) return res.render('404');
+
+  const contato = await Contato.delete(req.params.id);
+
+  if (!contato) return res.render('404');
+
+  req.flash('success', 'Contato deletado com sucesso');
+  req.session.save(() => res.redirect('back'));
+
+  return;
+};
